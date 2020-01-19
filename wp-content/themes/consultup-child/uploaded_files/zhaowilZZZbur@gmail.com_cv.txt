@@ -1,0 +1,105 @@
+ $rows=mysqli_num_rows($results);          
+
+                                if($rows){//0 false 1 true 
+                                              echo "<table id=\"resulttable\">";
+                                              echo"
+                                                    <tr id=\"resulttr\" >
+                                                        <th id=\"resultth\">No.</th>
+                                                        <th id=\"resultth\">Country</th>
+                                                        <th id=\"resultth\">Subject</th>
+                                                        <th id=\"resultth\">School Name</th>
+                                                        <th id=\"resultth\">School Level</th>
+                                                        <th id=\"resultth\">School Type</th>
+                                                        <th id=\"resultth\">School Size</th>
+                                                        <th id=\"resultth\">School Address</th>
+                                                        <th id=\"resultth\">Phone</th>
+                                                        <th id=\"resultth\">Email</th>
+                                                        <th id=\"resultth\">Contact Person</th>
+                                                        <th id=\"resultth\">Application Status</th>
+                                                    </tr>
+                                                ";
+
+
+                                    while($rows = mysqli_fetch_assoc($results)){
+
+                                                echo"
+                                                    <tr id=\"resulttr\">
+                                                        <td id=\"resulttd\">{$rows}</td>
+                                                        <td id=\"resulttd\">{$rows['country']}</td>
+                                                        <td id=\"resulttd\">{$rows['department']}</td>
+                                                        <td id=\"resulttd\">{$rows['schoolName']}</td>
+                                                        <td id=\"resulttd\">
+                                                    ";
+                                                        $schoolL=array();
+                                                    $schoolL=explode(',',$rows['schoolLevel']);
+                                                    for($i=0;$i<count($schoolL);$i++){
+                                                        if($schoolL[$i]==1){
+                                                            echo "Primary";
+                                                        }else if($schoolL[$i]==2){
+                                                            echo "Secondary";
+                                                        }else if($schoolL[$i]==3){
+                                                            echo "Tertiary";
+                                                        }
+                                                    }
+
+                                                        echo"
+                                                        </td>
+                                                        <td id=\"resulttd\">";
+
+                                                         $schoolT=array();
+                                                    $schoolT=explode(',',$rows['schoolType']);
+                                                    for($i=0;$i<count($schoolT);$i++){
+                                                        if($schoolT[$i]==1){
+                                                            echo "School";
+                                                        }else if($schoolT[$i]==2){
+                                                            echo "College";
+                                                        }else if($schoolT[$i]==3){
+                                                            echo "University";
+                                                        }else if($schoolT[$i]==4){
+                                                            echo "Institution";
+                                                        }
+                                                    }
+
+                                                        echo"
+                                                        </td>
+                                                        <td id=\"resulttd\">";
+                                                        $schoolS=array();
+                                                    $schoolS=explode(',',$rows['schoolSize']);
+                                                    for($i=0;$i<count($schoolS);$i++){
+                                                        if($schoolS[$i]==1){
+                                                            echo "Small";
+                                                        }else if($schoolS[$i]==2){
+                                                            echo "Medium";
+                                                        }else if($schoolS[$i]==3){
+                                                            echo "Large";
+                                                        }
+                                                    }
+                                                        echo"
+                                                        </td>
+                                                        <td id=\"resulttd\">{$rows['schoolAddress']} {$rows['city']} {$rows['state']} {$rows['country']}</td>
+                                                        <td id=\"resulttd\">+{$rows['countryCode']}&nbsp;{$rows['phone']}</td>
+                                                        <td id=\"resulttd\">{$rows['email']}  </td>
+                                                        <td id=\"resulttd\" style=\"text-transform: capitalize\">{$rows['firstName']}&nbsp;{$rows['lastName']}</td>
+                                                        <td id=\"resulttd\"> ";
+                                                        
+                
+                                                            if($rowsApply['approval']==1){
+                                                                echo "Approved":
+                                                            }elseif($rowsApply['approval']==2){
+                                                                echo "Rejected":
+                                                            }else{
+                                                                echo "Processing";
+                                                            }
+                                                        
+                                                        echo"
+                                                        </td>
+                                                        </tr>";
+                                            }
+                                            echo "</table>"; 
+
+
+
+
+
+
+                                         }
